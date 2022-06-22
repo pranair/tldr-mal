@@ -1,4 +1,5 @@
 from flask import Flask, jsonify, request, send_from_directory
+from app import malsum
 
 app = Flask(__name__,
             static_folder="./static/",
@@ -13,9 +14,8 @@ def index(path):
 def do_summarize():
     result = {}
     if request.method == 'POST':
-        text = request.json.get('text')
-    else:
-        text = request.args.get('text')
+        text = request.form['params']
+    print(malsum.summarize(text))
     return jsonify(malsum.summarize(text))
     return None
 

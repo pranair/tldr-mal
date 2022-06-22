@@ -16,6 +16,31 @@
             resize: none;
         }
     </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script>
+        $(document).on('click', '#sum_btn', function () {
+            txt_value = $('#input_field').val()
+            $.ajax({
+                type: "Post",
+                url: "api/summarize",
+                async: true,
+                data: {
+                    params: txt_value,
+                },
+                success: function (response) {
+                    let out = ""
+                    console.log(response)
+                    for (let i = 0; i < response.length; i++) {
+                        out += response[i][1]
+                        out += ". \n\n"
+                    }
+                    $("#sum_field").val(out)
+                }
+            });
+        });
+
+    </script>
 </head>
 
 <body>
@@ -37,19 +62,19 @@
     <div class="container d-flex flex-column justify-content-evenly gap-3">
         <h1 class="row d-flex justify-content-center hpad">Malayalam Text Summarizer</h1>
         <!-- <div class="container">
-            <div class="mtop d-flex justify-content-evenly">
-                <textarea class="p-1 txt"></textarea>
-                <textarea class="p-1 txt"></textarea>
-            </div>
-        </div> -->
+        <div class="mtop d-flex justify-content-evenly">
+            <textarea class="p-1 txt"></textarea>
+            <textarea class="p-1 txt"></textarea>
+        </div>
+    </div> -->
         <div class="container">
             <div class="row justify-content-evenly">
-                <textarea class="form-control col-3 tpad" rows="15"></textarea>
-                <textarea class="form-control col-3 tpad" rows="15"></textarea>
+                <textarea class="form-control col-3 tpad" id="input_field" rows="15"></textarea>
+                <textarea class="form-control col-3 tpad" id="sum_field" rows="15"></textarea>
             </div>
         </div>
         <div class="py-4 d-grid col-6 container">
-            <button type="button" class="btn btn-primary btn-lg">Summarize!</button>
+            <button type="button" class="btn btn-primary btn-lg" id="sum_btn">Summarize!</button>
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"

@@ -92,7 +92,7 @@ article = """
 
 
 def summarize(text):
-    dictionary, counter, length = split_text(article)
+    dictionary, counter, length = split_text(text)
     aff = affinity(dictionary, counter, length)
     aff = {k: v for k, v in sorted(aff.items(), key=lambda item: item[1])}
     final = {}
