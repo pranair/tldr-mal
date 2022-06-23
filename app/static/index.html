@@ -25,11 +25,17 @@
                 resize: none;
             }
         }
+
+        .hide-spinner {
+            visibility: hidden;
+        }
     </style>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"
             integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script>
         $(document).on('click', '#sum_btn', function () {
+            $('.btn-text').text("Summarizing...")
+            $('.spinner-grow').removeClass('hide-spinner')
             txt_value = $('#input_field').val()
             $.ajax({
                 type: "Post",
@@ -39,8 +45,9 @@
                     params: txt_value,
                 },
                 success: function (response) {
+                    $('.btn-text').text("Summarize!")
+                    $('.spinner-grow').addClass('hide-spinner')
                     let out = ""
-                    console.log(response)
                     for (let i = 0; i < response.length; i++) {
                         out += response[i][1]
                         out += ". \n\n"
@@ -84,7 +91,10 @@
         </div>
     </div>
     <div class="py-4 d-grid col-6 container">
-        <button type="button" class="btn btn-primary btn-lg" id="sum_btn">Summarize!</button>
+        <button type="button" class="btn btn-primary btn-lg" id="sum_btn">
+            <span class="hide-spinner spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+            <span class="btn-text">Summarize!</span>
+        </button>
     </div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
