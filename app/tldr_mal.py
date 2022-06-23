@@ -15,8 +15,7 @@ def do_summarize():
     result = {}
     if request.method == 'POST':
         text = request.form['params']
-    print(malsum.summarize(text))
-    return jsonify(malsum.summarize(text))
+    return jsonify(malsum.summarize(text, 4))
     return None
 
 
