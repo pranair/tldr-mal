@@ -1,5 +1,5 @@
 import regex
-from collections import Counter, OrderedDict
+from collections import Counter
 from mlmorph import Analyser
 
 sw = "കാണാന് | നിന്ന് | കുറഞ്ഞ | മുഴുവന് | കൂടാതെ | ആദ്യം | ഈ | കൂടുതല് | താങ്കള് | എന്നാല് | അതിനു | ശേഷം " \
@@ -107,7 +107,6 @@ def summarize(text):
     for i in sorted(list(final.keys())):
         ret.append([i, final[i][1].strip()])
         #print(i, final[i][1].strip())
-    # print(ret)
     return ret
 
 
