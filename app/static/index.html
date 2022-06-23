@@ -36,13 +36,13 @@
         $(document).on('click', '#sum_btn', function () {
             $('.btn-text').text("Summarizing...")
             $('.spinner-grow').removeClass('hide-spinner')
-            txt_value = $('#input_field').val()
+            source_text = $('#input_field').val()
             $.ajax({
                 type: "Post",
                 url: "api/summarize",
                 async: true,
                 data: {
-                    params: txt_value,
+                    params: source_text,
                 },
                 success: function (response) {
                     $('.btn-text').text("Summarize!")
@@ -78,12 +78,6 @@
 </div>
 <div class="container d-flex flex-column justify-content-evenly gap-3">
     <h1 class="row d-flex justify-content-center hpad">Malayalam Text Summarizer</h1>
-    <!-- <div class="container">
-    <div class="mtop d-flex justify-content-evenly">
-        <textarea class="p-1 txt"></textarea>
-        <textarea class="p-1 txt"></textarea>
-    </div>
-</div> -->
     <div class="container">
         <div class="row gap-4 justify-content-evenly">
             <textarea class="form-control col-3 tpad" id="input_field"></textarea>
