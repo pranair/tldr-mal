@@ -144,6 +144,3 @@ def summarize(text, limit):
 
     return summary[:limit]
 
-
-output = summarize(article, 4)
-print(output)
