@@ -2,6 +2,7 @@ import regex
 import math
 from collections import Counter
 from mlmorph import Analyser
+from indicnlp.tokenize import sentence_tokenize
 
 sw = "കാണാന് | നിന്ന് | കുറഞ്ഞ | മുഴുവന് | കൂടാതെ | ആദ്യം | ഈ | കൂടുതല് | താങ്കള് | എന്നാല് | അതിനു | ശേഷം " \
      "| ചെയ്യുന്നു | ഇവിടത്തെ | വേണ്ടി | ഏറ്റവും | ഇതില് | വേണ്ടിയും | ആണ് | സ്ഥിതിചെയ്യുന്നു | സ്ഥിതി" \
@@ -87,7 +88,7 @@ def split_text(text):
     text = text.replace('\u200d', '')
     text = text.replace('\u200c', '')
     # TODO: find a way to detect abbreviations
-    text = text.split('.')[:-1]
+    text = sentence_tokenize.sentence_split(text, 'ml')
     words = Counter()
     counter = 1
     sentences = {}
