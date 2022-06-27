@@ -87,7 +87,7 @@ def split_text(text):
     text = text.replace('\u200d', '')
     text = text.replace('\u200c', '')
     # TODO: find a way to detect abbreviations
-    text = text.split('.')[:-1]
+    text = text.split('. ')[:-1]
     words = Counter()
     counter = 1
     sentences = {}
