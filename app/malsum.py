@@ -81,7 +81,9 @@ def split_sentence(text):
             # TODO: perhaps take only adverbs, nouns and proper nouns and remove everything else
             # take only the first morpheme and also remove metadata
             y = regex.match(r'(.*?)<', morpheme[0][0]).group(1)
-            fin.append(y)
+            part = regex.match(r'(.*?)<(.*?)>', morpheme[0][0]).group(2)
+            if part == 'n' or part == 'adj' or part == 'np':
+                fin.append(y)
 
     return fin
 
@@ -147,4 +149,3 @@ def summarize(text, limit):
     #     print(summary[i][0], summary[i][1].strip())
 
     return summary[:limit]
-
