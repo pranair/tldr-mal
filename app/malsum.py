@@ -3,6 +3,7 @@ import math
 from collections import Counter
 from mlmorph import Analyser
 from indicnlp.tokenize import sentence_tokenize
+from indicnlp.normalize import indic_normalize
 
 sw = "കാണാന് | നിന്ന് | കുറഞ്ഞ | മുഴുവന് | കൂടാതെ | ആദ്യം | ഈ | കൂടുതല് | താങ്കള് | എന്നാല് | അതിനു | ശേഷം " \
      "| ചെയ്യുന്നു | ഇവിടത്തെ | വേണ്ടി | ഏറ്റവും | ഇതില് | വേണ്ടിയും | ആണ് | സ്ഥിതിചെയ്യുന്നു | സ്ഥിതി" \
@@ -60,6 +61,7 @@ analyser = Analyser()
 
 def split_sentence(text):
     text = text.strip()
+    text = text.replace('. ', '.')
     words = regex.split(r'(\s+)', text)
     temp = []
     delim = ",.!?/&-:;@'..."
@@ -76,6 +78,7 @@ def split_sentence(text):
         if i not in sw:
             morpheme = analyser.analyse(i)  # split word into morpheme
         if morpheme:
+            # TODO: perhaps take only adverbs, nouns and proper nouns and remove everything else
             # take only the first morpheme and also remove metadata
             y = regex.match(r'(.*?)<', morpheme[0][0]).group(1)
             fin.append(y)
@@ -85,8 +88,8 @@ def split_sentence(text):
 
 def split_text(text):
     # remove unnecessary unicode chars
-    text = text.replace('\u200d', '')
-    text = text.replace('\u200c', '')
+    normalizer = indic_normalize.MalayalamNormalizer()
+    text = normalizer.normalize(text)
     # TODO: find a way to detect abbreviations
     text = sentence_tokenize.sentence_split(text, 'ml')
     words = Counter()
