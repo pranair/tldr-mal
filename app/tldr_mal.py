@@ -10,6 +10,15 @@ app = Flask(__name__,
 def index(path):
     return send_from_directory('static', path)
 
+@app.route("/docs", defaults={'path': 'docs.html'})
+def docs(path):
+    return send_from_directory('static', path)
+
+
+@app.route("/about", defaults={'path': 'about.html'})
+def about(path):
+    return send_from_directory('static', path)
+
 @app.route("/api/summarize", methods=['POST', 'GET'])
 def do_summarize():
     result = {}
