@@ -33,16 +33,21 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"
         integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script>
+        $(document).ready(function() {
+                    $("input[type=range]").val($('#range_val').text()) // reset range on refresh
+                });
         $(document).on('click', '#sum_btn', function () {
             $('.btn-text').text("Summarizing...")
             $('.spinner-grow').removeClass('hide-spinner')
+            sum_length = $('#sumRange').val()
             source_text = $('#input_field').val()
             $.ajax({
                 type: "Post",
                 url: "api/summarize",
                 async: true,
                 data: {
-                    params: source_text,
+                    source: source_text,
+                    length: sum_length,
                 },
                 success: function (response) {
                     $('.btn-text').text("Summarize!")
@@ -87,6 +92,11 @@
             </div>
         </div>
         <div class="py-4 d-grid col-6 container">
+            <div class="container justify-content-evenly py-3">
+                <h5 id="range_val" class="text-center px-2">4</h5>
+                <input type="range" class="px-4 form-range" min="4" max="10" oninput="$('#range_val').text(this.value)" 
+                                                                                       id="sumRange">
+            </div>
             <button type="button" class="btn btn-primary btn-md" id="sum_btn">
                 <span class="hide-spinner spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
                 <span class="btn-text">Summarize!</span>

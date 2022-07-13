@@ -13,9 +13,12 @@ def index(path):
 @app.route("/api/summarize", methods=['POST', 'GET'])
 def do_summarize():
     result = {}
+    text = ""
+    length = 0
     if request.method == 'POST':
-        text = request.form['params']
-    return jsonify(malsum.summarize(text, 4))
+        text = request.form['source']
+        length = request.form['length']
+    return jsonify(malsum.summarize(text, int(length)))
     return None
 
 
