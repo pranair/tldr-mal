@@ -7,9 +7,15 @@
         integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
-        .credit {
-            font-size: 1.3rem;
+        .input {
+            font-size: 1.2rem;
         }
+
+        .summary {
+            font-size: 1.25rem;
+        }
+
+        code {}
     </style>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"
         integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
@@ -33,16 +39,37 @@
             </div>
         </div>
     </div>
-    <div class="text-center pt-5">
-        <h2 class="">Malayalam Text Summarizer</h2>
-        <h4 class="text-muted">by</h4>
-        <p class="pt-3 credit">
-            Prasanth V.P<br>
-            Pratyush Nair<br>
-            Ron Roy<br>
-            Sriram A Madhu<br><br>
-            Mentor: Aswathy Cherian
-        </p>
+    <div class="p-5">
+        <h2 class="text-muted">/api/summarize</h2>
+        <hr />
+        <div class="text-muted">
+            <strong class="input">Input: </strong>
+            <span class="font-monospace">Text to summarize and length of summary as JSON</span>
+            <br>
+            <strong class="input">Output: </strong>
+            <span class="font-monospace">Summary in JSON</span>
+        </div>
+        <br>
+        <p class="summary">Input is provided via POST request. Input data is serialized as JSON, this is done both for
+            practical reason and for convenience. The practical reason being it's easy to encode and decode JSON both in
+            Javascript
+            and Python still being in an easy to understand format. The general format is as given:</p>
+        <pre><code>
+    {
+        params: source_text,
+    } 
+        </code></pre>
+
+        <p class="summary">Output is returned as a result of POST request. Again, JSON format is used and format is as
+            given:</p>
+        <pre><code>
+    {
+        [index, line]
+         ..........
+    } 
+        </code></pre>
+        <p class="summary">where index is the location of the line within the source text and line is simply the
+            generated summary.</p>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
